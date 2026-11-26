@@ -1,0 +1,9 @@
+node_modules/
+.pnpm-store/
+dist/
+*.local
+*.log
+.DS_Store
+.vite/
+coverage/
+.local-previews/
