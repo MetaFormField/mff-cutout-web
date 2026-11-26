@@ -29,7 +29,7 @@ export function UploadZone({ disabled, onFile }: UploadZoneProps) {
         event.currentTarget.value = ''
         if (file) onFile(file)
       }} />
-      <div className="upload-main">
+      <div className="upload-content"><div className="upload-main">
         <div className="upload-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32" fill="none">
             <path d="M9 23 23 9M13 9h10v10" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -50,7 +50,7 @@ export function UploadZone({ disabled, onFile }: UploadZoneProps) {
       <div className="upload-meta">
         <div><strong>粘贴图片</strong><span>Ctrl / ⌘ + V</span></div>
         <div><strong>支持格式</strong><span>JPG、JPEG、PNG · 最大 15 MB</span></div>
-      </div>
+      </div></div>
     </div>
   )
 }
