@@ -20,8 +20,16 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+      - name: Restore Cloudflare credentials
+        shell: bash
+        env:
+          WRANGLER_CONFIG_B64: ${{ secrets.CLOUDFLARE_WRANGLER_CONFIG_B64 }}
+          XDG_CONFIG_HOME: ${{ runner.temp }}/wrangler-config
+        run: |
+          mkdir -p "$XDG_CONFIG_HOME/.wrangler/config"
+          printf '%s' "$WRANGLER_CONFIG_B64" | base64 --decode > "$XDG_CONFIG_HOME/.wrangler/config/default.toml"
+      - name: Deploy to Cloudflare
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          XDG_CONFIG_HOME: ${{ runner.temp }}/wrangler-config
+        run: pnpm exec wrangler deploy
