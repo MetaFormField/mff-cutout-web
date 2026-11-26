@@ -34,4 +34,4 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           XDG_CONFIG_HOME: ${{ runner.temp }}/wrangler-config
-        run: pnpm exec wrangler deploy
+        run: pnpm exec wrangler pages deploy dist --project-name mffcutout --branch main

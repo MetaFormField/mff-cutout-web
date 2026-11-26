@@ -8,7 +8,7 @@ MFF CUTOUT 是免费的浏览器本地 AI 抠图工具。图片解码、AI 推�
 - `@bg0/browser@0.1.1` 负责能力检测、模型下载和缓存、WebGPU / WebAssembly 推理、进度、取消和透明 PNG 合成。
 - Canvas API 负责图片解码、Alpha 边缘处理、对比预览和原尺寸 PNG 导出。
 - `fflate@0.8.2` 在浏览器本地生成 ZIP；没有服务器压缩请求。
-- 静态站点部署在 Cloudflare Workers；GitHub `main` 分支是正式环境的发布源。
+- 静态站点部署在 Cloudflare Pages；GitHub `main` 分支是正式环境的发布源。
 
 ## AI 模型来源
 
@@ -51,4 +51,4 @@ pnpm preview
 
 ## 发布
 
-正式环境使用 Cloudflare Workers 静态资源，地址为 `https://mffcutout.jaricachi.workers.dev`。构建命令为 `pnpm build`，输出目录为 `dist`；对 `main` 的推送会触发新的正式部署。手动发布命令及故障排查见 [DEPLOYMENT.md](DEPLOYMENT.md)。
+正式环境使用 Cloudflare Pages，地址为 `https://mffcutout.pages.dev`。构建命令为 `pnpm build`，输出目录为 `dist`；对 `main` 的推送会触发新的正式部署。手动发布命令及故障排查见 [DEPLOYMENT.md](DEPLOYMENT.md)。
