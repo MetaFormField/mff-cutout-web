@@ -48,6 +48,7 @@ function App() {
   const [modelNotice, setModelNotice] = useState<'hidden' | 'downloading' | 'ready' | 'error'>('hidden')
   const [modelBytes, setModelBytes] = useState<{ loaded: number; total: number | null }>({ loaded: 0, total: null })
   const [modelError, setModelError] = useState('')
+  const [modelAttempt, setModelAttempt] = useState(0)
 
   const sourceUrl = useBlobUrl(file)
   const resultUrl = useBlobUrl(result?.blob)
@@ -74,7 +75,7 @@ function App() {
       }
     }, 500)
     return () => { window.clearTimeout(timer); controller.abort() }
-  }, [])
+  }, [modelAttempt])
 
   const run = useCallback(async (selected: File, taskId: number, imageInfo: ImageInfo) => {
     const controller = new AbortController()
@@ -268,6 +269,7 @@ function App() {
           ? '首次使用需要下载公开模型。图片仍只在浏览器本地处理。'
           : modelNotice === 'ready' ? '模型已缓存，上传图片即可开始抠图。' : modelError}</p>
         {modelNotice === 'downloading' && <p role="status">{modelBytes.total ? `${Math.round(modelBytes.loaded / modelBytes.total * 100)}%` : `${Math.round(modelBytes.loaded / 1024 / 1024)} MB 已下载`}</p>}
+        {modelNotice === 'error' && <button onClick={() => { setModelNotice('downloading'); setModelBytes({ loaded: 0, total: null }); setModelAttempt(value => value + 1) }}>重新下载模型</button>}
       </div>}
     </>
   )
